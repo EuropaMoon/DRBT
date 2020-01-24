@@ -25,6 +25,6 @@ class Window {
   
   ///Closes the window
   void close() {
-    close();                        //Closes window
+    exit();                        //Closes window
   }
 }

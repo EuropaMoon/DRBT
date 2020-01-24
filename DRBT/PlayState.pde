@@ -1,11 +1,18 @@
+///Handles the Play state
+
+/*
+ *
+ *
+ */
+ 
 class PlayState {
   
   PlayState() {
   }
   
-  void Update(Game game) {
+  void update(Game game) {
   }
   
-  void Draw(Game game) {
+  void draw(Game game) {
   }
 }

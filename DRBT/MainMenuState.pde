@@ -7,12 +7,24 @@
  
 class MainMenuState {
   
+  Button playButton = new Button(new PVector(width / 2, height / 2 - 60), new PVector(100, 50), "Play", 100, color(25, 25, 25));    //Button to enter the playState
+  Button exitButton = new Button(new PVector(width / 2, height / 2 + 60), new PVector(100, 50), "Exit", 100, color(25, 25, 25));    //Button to end the process
+  
   MainMenuState() {
   }
   
-  void Update(Game game) {
+  void update(Game game) {
+    
+    //Exit Button Collision detection and reaction
+    if(exitButton.isSelected() && mousePressed && mouseButton == LEFT)
+      game.window.close();                                                        //End process
+    //Play Button Collision detection and reaction
+    else if(playButton.isSelected() && mousePressed && mouseButton == LEFT)
+      println("oki");
   }
   
-  void Draw(Game game) {
+  void draw(Game game) {
+    playButton.draw();
+    exitButton.draw();
   }
 }
