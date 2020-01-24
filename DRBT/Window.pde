@@ -7,10 +7,12 @@
 
 class Window {
   PVector size;                      //Window size
+  color clearColor;                  //Color that the clear function uses to clear the window
   
   ///Expects the window size
   Window(PVector size) {
     this.size = size;
+    clearColor = color(0, 0, 0);
   }
   
   //Modifies the location from which rectangles are drawn
@@ -18,9 +20,14 @@ class Window {
     rectMode(rectMode);
   }
   
+  //Modifies the clear color
+  void setClearColor(color clearColor) {
+    this.clearColor = clearColor;
+  }
+  
   ///Draws the whole window black
   void clear() {
-    background(0);                  //0 = black, 255 = white
+    background(clearColor);        //0 = black, 255 = white
   }
   
   ///Closes the window

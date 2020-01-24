@@ -44,7 +44,7 @@ class Button {
   }
   
   void draw() {
-    //Checks if a Button background should be drawn //<>//
+    //Checks if a Button background should be drawn //<>// //<>//
     if(buttonBackground) {
       fill(bColor);                              //sets Color for Button background
       rect(pos.x, pos.y, size.x, size.y);        //draws Button background

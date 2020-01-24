@@ -7,6 +7,7 @@
 
 class Game {
   int frameDeltaTime = 0, passedTimeLastFrame = 0, passedTime = 0;    //Time between Frames, time the last frame started, time this frame started
+  State currentState = State.MAINMENU;                                //State enum that shows the current game state
   
   Window window;                                                      //Declaring game window
   MainMenuState mainMenuState = new MainMenuState();                  //A class that provides the main menu
