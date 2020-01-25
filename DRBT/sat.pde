@@ -5,50 +5,64 @@
  */
 boolean sat(PVector verticesBoxOne[], PVector verticesBoxTwo[]) {
   
-  //searching the highest and lowest position for BoxOne
-  PVector lowestPointBO = new PVector(width, height);
-  PVector highestPointBO = new PVector(0, 0);
-  for(int i = 0; i != verticesBoxOne.length; ++i) {
-    if(lowestPointBO.x > verticesBoxOne[i].x)
-      lowestPointBO.x = verticesBoxOne[i].x;
-    if(highestPointBO.x < verticesBoxOne[i].x)
-      highestPointBO.x = verticesBoxOne[i].x;
+  PVector test = new PVector(abs(verticesBoxTwo[0].x - verticesBoxTwo[1].x), abs(verticesBoxTwo[0].y - verticesBoxTwo[1].y));
+  
+  //Checking every Axis for a shadow collision
+  if(checkAxis(test, verticesBoxOne, verticesBoxTwo)) {
+    test = new PVector(abs(verticesBoxTwo[0].y - verticesBoxTwo[1].y), abs(verticesBoxTwo[0].x - verticesBoxTwo[1].x));
+    if(checkAxis(test, verticesBoxOne, verticesBoxTwo)) {
+      test = new PVector(abs(verticesBoxOne[0].x - verticesBoxOne[1].x), abs(verticesBoxOne[0].y - verticesBoxOne[1].y));
+      if(checkAxis(test, verticesBoxOne, verticesBoxTwo)) {
+        test = new PVector(abs(verticesBoxOne[0].y - verticesBoxOne[1].y), -abs(verticesBoxOne[0].x - verticesBoxOne[1].x));
+        if(checkAxis(test, verticesBoxOne, verticesBoxTwo)) {
+          return true;
+        }
+      }
+    }
+  }
+  return false;
+}
+
+boolean checkAxis(PVector Axis, PVector verticesBoxOne[], PVector verticesBoxTwo[]) {
+  
+  //Calculating the dot product for every vertice (verticesBoxOne) "creating shadows"
+  int dotProductsBoxOne[] = new int[4];
+  dotProductsBoxOne[0] = int(new PVector(Axis.x, Axis.y).dot(verticesBoxOne[0]));
+  dotProductsBoxOne[1] = int(new PVector(Axis.x, Axis.y).dot(verticesBoxOne[1]));
+  dotProductsBoxOne[2] = int(new PVector(Axis.x, Axis.y).dot(verticesBoxOne[2]));
+  dotProductsBoxOne[3] = int(new PVector(Axis.x, Axis.y).dot(verticesBoxOne[3]));
+  
+  //Calculating the dot product for every vertice (verticesBoxTwo) "creating shadows"
+  int dotProductsBoxTwo[] = new int[4];
+  dotProductsBoxTwo[0] = int(new PVector(Axis.x, Axis.y).dot(verticesBoxTwo[0]));
+  dotProductsBoxTwo[1] = int(new PVector(Axis.x, Axis.y).dot(verticesBoxTwo[1]));
+  dotProductsBoxTwo[2] = int(new PVector(Axis.x, Axis.y).dot(verticesBoxTwo[2]));
+  dotProductsBoxTwo[3] = int(new PVector(Axis.x, Axis.y).dot(verticesBoxTwo[3]));
+  
+  //searching the highest and lowest dot product for BoxOne and BoxTwo
+  int dotProductsBO[] = new int[] { dotProductsBoxOne[0], dotProductsBoxOne[0] };        //dot products for verticesBoxOne [beginning of shadow, end of shadow]
+  int dotProductsBT[] = new int[] { dotProductsBoxTwo[0], dotProductsBoxTwo[0] };        //dot products for verticesBoxTwo [beginning of shadow, end of shadow]
+  
+  //searching the beginning of shadow and the ending
+  for(int i = 0; i != 4; ++i) {
+    if(dotProductsBO[0] > dotProductsBoxOne[i]) {
+      dotProductsBO[0] = dotProductsBoxOne[i];
+    }
+    if(dotProductsBO[1] < dotProductsBoxOne[i]) {
+      dotProductsBO[1] = dotProductsBoxOne[i];
+    }
       
-    if(lowestPointBO.y > verticesBoxOne[i].y)
-      lowestPointBO.y = verticesBoxOne[i].y;
-    if(highestPointBO.y < verticesBoxOne[i].y)
-      highestPointBO.y = verticesBoxOne[i].y;
-  }
-  //searching the highest and lowest position for BoxTwo
-  PVector lowestPointBT = new PVector(width, height);
-  PVector highestPointBT = new PVector(0, 0);
-  for(int i = 0; i != verticesBoxOne.length; ++i) {
-    if(lowestPointBT.x > verticesBoxTwo[i].x)
-      lowestPointBT.x = verticesBoxTwo[i].x;
-    if(highestPointBT.x < verticesBoxTwo[i].x)
-      highestPointBT.x = verticesBoxTwo[i].x;
-      
-    if(lowestPointBT.y > verticesBoxTwo[i].y)
-      lowestPointBT.y = verticesBoxTwo[i].y;
-    if(highestPointBT.y < verticesBoxTwo[i].y)
-      highestPointBT.y = verticesBoxTwo[i].y;
+    if(dotProductsBT[0] > dotProductsBoxTwo[i]) {
+      dotProductsBT[0] = dotProductsBoxTwo[i];
+    }
+    if(dotProductsBT[1] < dotProductsBoxTwo[i]) {
+      dotProductsBT[1] = dotProductsBoxTwo[i];
+    }
   }
   
-  rectMode(CORNER);
-  //Top lines
-  fill(255);
-  rect(new PVector(1, 0).dot(lowestPointBO), 0, new PVector(1, 0).dot(highestPointBO) - new PVector(1, 0).dot(lowestPointBO), 20);
-  rect(0, new PVector(0, 1).dot(lowestPointBO), 20, new PVector(0, 1).dot(highestPointBO) - new PVector(0, 1).dot(lowestPointBO));
-  //Side lines
-  fill(color(255, 0, 0));
-  rect(new PVector(1, 0).dot(lowestPointBT), 0, new PVector(1, 0).dot(highestPointBT) - new PVector(1, 0).dot(lowestPointBT), 40);
-  rect(0, new PVector(0, 1).dot(lowestPointBT), 40, new PVector(0, 1).dot(highestPointBT) - new PVector(0, 1).dot(lowestPointBT));
-  rectMode(CENTER);
-          
-  println(new PVector(1, 0).dot(verticesBoxOne[3]));
-  
-  if(true) {
+  //Checking if shadow overlap
+  if(dotProductsBO[0] < dotProductsBT[1] && dotProductsBO[1] > dotProductsBT[0]) {
+    return true;
   }
-  
-  return true;
+  return false;
 }

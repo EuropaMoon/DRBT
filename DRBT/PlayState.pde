@@ -6,7 +6,7 @@
  */
  
 class PlayState {
-  Road road = new Road(new PVector(100, 80), new PVector(190, 190), 120);
+  Road road = new Road(new PVector(100, 100), new PVector(300, 300), 120);
   
   PlayState() {
   }
@@ -17,7 +17,7 @@ class PlayState {
   void draw(Game game) {
     game.window.setClearColor(color(0, 100, 0));                                   //Sets clearing color
     
-    road = new Road(new PVector(100, 80), new PVector(mouseX, mouseY), 120);
+    //road = new Road(new PVector(100, 80), new PVector(mouseX, mouseY), 120);
     
     road.colMouse();
     road.draw();
