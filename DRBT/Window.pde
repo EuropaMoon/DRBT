@@ -18,6 +18,7 @@ class Window {
   //Modifies the location from which rectangles are drawn
   void setRectMode(int rectMode) {
     rectMode(rectMode);
+    ellipseMode(CENTER);
   }
   
   //Modifies the clear color

@@ -40,13 +40,30 @@ class Road {
       boxPT = new PVector(boxPT.x, points[0].y - size / 2);    //  |            \ |
     }                                                          //  |______________|
                                                                //                  ↖corner position
+    //Collision mouse Road
     if((mouseX < boxPO.x && mouseX > boxPT.x &&
         mouseY < boxPO.y && mouseY > boxPT.y)) {
           
-          PVector dot[] = new PVector[4];
-          //dot[0] = ; 
+          //Calcullating the translation for the corner positions of the Road
+          PVector translation = new PVector(0, 0);
+          translation.y = size / 2 * sin((atan((points[1].x - points[0].x) / (points[1].y - points[0].y))));
+          translation.x = sqrt(pow(size / 2, 2) - pow(translation.y, 2));
           
-          if(true) {
+          //Calcullates the Road vertices
+          PVector vertices[] = new PVector[4];
+          vertices[0] = new PVector(points[0].x + translation.x, points[0].y - translation.y);
+          vertices[1] = new PVector(points[0].x - translation.x, points[0].y + translation.y);
+          vertices[2] = new PVector(points[1].x + translation.x, points[1].y - translation.y);
+          vertices[3] = new PVector(points[1].x - translation.x, points[1].y + translation.y);
+          
+          fill(255, 0, 0);
+          ellipse(vertices[0].x, vertices[0].y, 5, 5);
+          ellipse(vertices[1].x, vertices[1].y, 5, 5);
+          
+          ellipse(vertices[2].x, vertices[2].y, 5, 5);
+          ellipse(vertices[3].x, vertices[3].y, 5, 5);
+          
+          if(sat(vertices, new PVector[] {new PVector(mouseX - 1, mouseY - 1), new PVector(mouseX + 1, mouseY - 1), new PVector(mouseX - 1, mouseY + 1), new PVector(mouseX + 1, mouseY + 1)})) {
             game.window.setClearColor(color(255, 0, 0));
           }
     }
