@@ -1,9 +1,9 @@
-Game game;
+Game game = new Game();
 
 enum State { MAINMENU, PLAY };
 
 void setup() {
-  size(600, 600);
+  size(600, 600, P2D);
   game = new Game(new PVector(width, height));
   game.window.setRectMode(CENTER);
 }
@@ -23,4 +23,12 @@ void draw() {
   }
   
   game.endFrame();
+}
+
+void keyPressed() {
+  game.event.addKeyToBuffer(keyCode);
+}
+
+void keyReleased() {
+  game.event.removeKeyFromBuffer(keyCode);
 }

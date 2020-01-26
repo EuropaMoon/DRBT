@@ -56,14 +56,10 @@ class Road {
           vertices[2] = new PVector(points[1].x + translation.x, points[1].y - translation.y);
           vertices[3] = new PVector(points[1].x - translation.x, points[1].y + translation.y);
           
-          fill(255, 0, 0);
-          ellipse(vertices[0].x, vertices[0].y, 5, 5);
-          ellipse(vertices[1].x, vertices[1].y, 5, 5);
-          
-          ellipse(vertices[2].x, vertices[2].y, 5, 5);
-          ellipse(vertices[3].x, vertices[3].y, 5, 5);
-          
-          if(sat(vertices, new PVector[] {new PVector(mouseX - 1, mouseY - 1), new PVector(mouseX + 1, mouseY - 1), new PVector(mouseX - 1, mouseY + 1), new PVector(mouseX + 1, mouseY + 1)})) {
+          if(sat(vertices, new PVector[] { new PVector(mouseX - 1, mouseY - 1), 
+                                           new PVector(mouseX + 1, mouseY - 1), 
+                                           new PVector(mouseX - 1, mouseY + 1), 
+                                           new PVector(mouseX + 1, mouseY + 1)})) {
             game.window.setClearColor(color(255, 0, 0));
           }
     }
