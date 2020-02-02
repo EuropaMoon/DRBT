@@ -29,6 +29,7 @@ class Window {
   ///Draws the whole window black
   void clear() {
     background(clearColor);        //0 = black, 255 = white
+    noStroke();
   }
   
   ///Closes the window

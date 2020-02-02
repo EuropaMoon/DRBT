@@ -3,18 +3,18 @@
  *
  *
  */
-boolean sat(PVector verticesBoxOne[], PVector verticesBoxTwo[]) {
-  
-  PVector test = new PVector(abs(verticesBoxTwo[0].x - verticesBoxTwo[1].x), abs(verticesBoxTwo[0].y - verticesBoxTwo[1].y));
+boolean sat(PVector vBO[], PVector vBT[]) {
+
+  PVector test = new PVector(vBT[0].x - vBT[1].x, vBT[0].y - vBT[1].y);
   
   //Checking every Axis for a shadow collision
-  if(checkAxis(test, verticesBoxOne, verticesBoxTwo)) {
-    test = new PVector(abs(verticesBoxTwo[0].y - verticesBoxTwo[1].y), abs(verticesBoxTwo[0].x - verticesBoxTwo[1].x));
-    if(checkAxis(test, verticesBoxOne, verticesBoxTwo)) {
-      test = new PVector(abs(verticesBoxOne[0].x - verticesBoxOne[1].x), abs(verticesBoxOne[0].y - verticesBoxOne[1].y));
-      if(checkAxis(test, verticesBoxOne, verticesBoxTwo)) {
-        test = new PVector(abs(verticesBoxOne[0].y - verticesBoxOne[1].y), -abs(verticesBoxOne[0].x - verticesBoxOne[1].x));
-        if(checkAxis(test, verticesBoxOne, verticesBoxTwo)) {
+  if(checkAxis(test, vBO, vBT)) {
+    test = new PVector(vBT[0].y - vBT[1].y, vBT[0].x - vBT[1].x);
+    if(checkAxis(test, vBO, vBT)) {
+      test = new PVector(vBO[0].x - vBO[1].x, vBO[0].y - vBO[1].y);
+      if(checkAxis(test, vBO, vBT)) {
+        test = new PVector(vBO[0].y - vBO[1].y, -(vBO[0].x - vBO[1].x));
+        if(checkAxis(test, vBO, vBT)) {
           return true;
         }
       }
